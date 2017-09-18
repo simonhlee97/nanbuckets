@@ -6,7 +6,9 @@ var router = require('./router');
 var mongoose = require('mongoose');
 
 // DB connection
-mongoose.connect('mongodb://localhost:bucket/bucket');
+mongoose.connect('mongodb://localhost/bucket', {
+	useMongoClient: true
+});
 
 app.use(bodyParser.json({ type: '*/*'}));
 router(app);
