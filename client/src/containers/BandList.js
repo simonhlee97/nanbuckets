@@ -24,7 +24,7 @@ class BandList extends Component {
 
 function mapStateToProps(state){
 	return{
-		bands: state.bands
+		bands: state.bands,
 	};
 }
 export default connect(mapStateToProps)(BandList);
