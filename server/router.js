@@ -12,7 +12,7 @@ module.exports = function(app){
 	app.post('/signin', requireSignin, Auth.signin)
 	app.get('/', requireAuth, function(req, res, next){ //next is for error handling
 		res.send("HELLO HOMEPAGE")
-	})
+	});
 
 }
 
