@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import reduxThunk from 'react-redux';
+import reduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
