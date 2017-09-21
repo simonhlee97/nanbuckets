@@ -10,8 +10,8 @@ module.exports = function(app){
 
 	app.post('/signup', Auth.signup)
 	app.post('/signin', requireSignin, Auth.signin)
-	app.get('/', requireAuth, function(req, res, next){ //next is for error handling
-		res.send("HELLO HOMEPAGE")
+	app.get('/', requireAuth, function(req, res){ //next is for error handling
+		res.send({message: 'Yo Yo Yo'});
 	});
 
 }

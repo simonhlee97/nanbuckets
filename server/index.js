@@ -1,3 +1,4 @@
+var cors = require('cors');
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
@@ -9,6 +10,8 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/bucket', {
 	useMongoClient: true
 });
+
+app.use(cors());
 
 app.use(bodyParser.json({ type: '*/*'}));
 router(app);
