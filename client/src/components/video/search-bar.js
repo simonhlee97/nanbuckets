@@ -4,17 +4,18 @@ class SearchBar extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { term: 'bucket-list' };
+		this.state = { term: 'austin powers' };
 	}
 	render() {
 		return(
 			<div className="search-bar">
 				<label className="vidSearchLbl">
-					Get Inspired:
+					Get Buckets:
 				</label>
 				<input
 					value={this.state.term}
 					onChange={(event) => this.onInputChange(event.target.value) }/>
+				<button>Search</button>
 			</div>
 		);
 	}
