@@ -1,5 +1,7 @@
 
 var Auth = require('./controllers/auth');
+var BucketList = require('./controllers/bucketlistcontroller');
+
 var passportService = require('./services/passport');
 var passport = require('passport');
 
@@ -8,11 +10,8 @@ var requireSignin = passport.authenticate('local', {session: false});
 
 module.exports = function(app){
 
-	app.post('/signup', Auth.signup)
-	app.post('/signin', requireSignin, Auth.signin)
-	app.get('/', requireAuth, function(req, res){ //next is for error handling
-		res.send({message: 'Yo Yo Yo'});
-	});
-
+	app.post('/signup', Auth.signup);
+	app.post('/signin', requireSignin, Auth.signin);
+	app.post('/newitem', requireAuth, BucketList.addBucketList);
 }
 
