@@ -9,7 +9,7 @@ import App from './components/app';
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
-import Feature from './components/feature';
+import ListItem from './components/list/new-list-item';
 import RequireAuth from './components/auth/require_auth';
 // reducers
 import reducers from './reducers';
