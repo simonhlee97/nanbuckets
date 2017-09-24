@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, CREATE_POSTS} from './types';
+import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, CREATE_POSTS, FETCH_POSTS} from './types';
 import authReducer from '../reducers/auth_reducer';
 
 const ROOT_URL = 'http://localhost:3000';
@@ -32,6 +32,20 @@ export function signinUser({ email, password }){
 				.catch(response => dispatch(authError("bad login info")));
 	}
 }
+
+export function fetchPosts(){
+	return function(dispatch){
+		axios.get(`${ROOT_URL}/items`, config)
+			.then( (response) =>{
+				console.log("Response", response)
+				dispatch({
+					type: FETCH_POSTS,
+					payload: response
+				});
+			});
+	}
+}
+
 
 export function AuthError(error) {
 	return {
