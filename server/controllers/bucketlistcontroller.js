@@ -65,6 +65,8 @@ exports.deleteBucketList = function(req, res) {
     );
 }
 
+
+
 exports.updateBucketList = function(req, res) {
   var specificBucketList = req.params.id;
   BucketList.findById(specificBucketList, function(err, bucketlistUpdate) {
