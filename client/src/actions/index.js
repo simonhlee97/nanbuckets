@@ -1,17 +1,32 @@
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, CREATE_POSTS, FETCH_POSTS, FETCH_POST, DELETE_POST} from './types';
+import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, CREATE_POSTS, FETCH_POSTS, FETCH_POST, DELETE_POST, UPDATE_POST} from './types';
 import authReducer from '../reducers/auth_reducer';
 
 const ROOT_URL = 'http://localhost:3000';
+const config = {
+	headers: {authorization: null}
+}
 
+export function updatePost(props, id) {
+	return function(dispatch){
+		axios.put(`${ROOT_URL}/items/${id}`, {props}, config)
+			.then(response=>{
+				dispatch({
+					type: UPDATE_POST,
+					payload: response
+				});
+				browserHistory.push('/items');
+			});
+	}
+}
 
 export function	signupUser ({email, password}) {
 	return function (dispatch){
 		axios.post(`${ROOT_URL}/signup`, {email, password})
 			.then(response => {
 				dispatch({type: AUTH_USER});
-
+				config.headers.authorization=response.data.token;
 				//update the token
 				localStorage.setItem('token', response.data.token);
 				browserHistory.push('/newitem');
@@ -25,11 +40,11 @@ export function signinUser({ email, password }){
 		axios.post(`${ROOT_URL}/signin`, {email, password})
 			.then(response => {
 				dispatch({ type: AUTH_USER });
-
+				config.headers.authorization=response.data.token;
 				localStorage.setItem('token', response.data.token);
 				browserHistory.push('/newitem');
 			})
-				.catch(response => dispatch(authError("bad login info")));
+				.catch(response => dispatch(authError(response.data.error)));
 	}
 }
 
@@ -68,7 +83,7 @@ export function deletePost(id){
 					type: DELETE_POST,
 					payload: response
 				});
-				browserHistory.push('./items');
+				browserHistory.push('/items');
 			});
 	}
 }
@@ -87,6 +102,7 @@ export function signoutUser(){
 }
 
 export function createPost(props){
+	console.log(config);
 	return function(dispatch){
 		axios.post(`${ROOT_URL}/newitem`, {props}, config)
 		.then(request => {
@@ -94,7 +110,7 @@ export function createPost(props){
 				type: CREATE_POSTS,
 				payload: request
 			});
-		browserHistory.push('/newitem');	
+		browserHistory.push('/items');	
 	});
 	}
 }
